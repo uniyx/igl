@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Strategy Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Function to get strategy data from server
+            function getStrategy() {
+                $.ajax({
+                    url: '/get_data',
+                    type: 'GET',
+                    success: function (data) {
+                        // Update player boxes with new data
+                        for (var i = 0; i < data.players.length; i++) {
+                            var playerBox = $('.player-box');
+                            var gun1 = $('#'+data.players[i][2]+'_gun1');
+                            var gun2 = $('#'+data.players[i][2]+'_gun2');
+                            var nade = $('#'+data.players[i][2]+'_nade');
+                            var flash = $('#'+data.players[i][2]+'_flash');
+                            var smoke = $('#'+data.players[i][2]+'_smoke');
+                            var molly = $('#'+data.players[i][2]+'_molly');
+                            var description = $('#'+data.players[i][2]+'_description');
+                            playerBox.find(gun1).text(data.players[i][3]);
+                            playerBox.find(gun2).text(data.players[i][4]);
+                            playerBox.find(nade).text(data.players[i][5]);
+                            playerBox.find(flash).text(data.players[i][6]);
+                            playerBox.find(smoke).text(data.players[i][7]);
+                            playerBox.find(molly).text(data.players[i][8]);
+                            playerBox.find(description).text(data.players[i][9]);
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.log('Error getting strategy data: ' + textStatus);
+                    }
+                });
+            }
+
+            // Refresh strategy data every second
+            setInterval(getStrategy, 2000);
+        });
+
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Strategy Page</h1>
+        <div class="row">
+            {% for player in players %}
+            <div class="player-box">
+                <h3>{{ player.name }}</h3>
+                <div class="player-attribute">
+                    <h4>Gun 1:</h4>
+                    <p id="{{ player.name }}_gun1">{{ player.gun1 }}</p>
+                </div>
+                <div class="player-attribute">
+                    <h4>Gun 2:</h4>
+                    <p id="{{ player.name }}_gun2">{{ player.gun2 }}</p>
+                </div>
+                <div class="player-attribute">
+                    <h4>Grenades:</h4>
+                    <p id="{{ player.name }}_grenades">{{ player.grenades }}</p>
+                </div>
+                <div class="player-attribute">
+                    <h4>Description:</h4>
+                    <p id="{{ player.name }}_description">{{ player.description }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+
+</html>
