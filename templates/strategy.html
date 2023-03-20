@@ -16,7 +16,9 @@
                     success: function (data) {
                         // Update player boxes with new data
                         for (var i = 0; i < data.players.length; i++) {
+                            var strategy = data.players[0][1];
                             var playerBox = $('.player-box');
+                            var strategyName = $('#strategy-name');
                             var gun1 = $('#'+data.players[i][2]+'_gun1');
                             var gun2 = $('#'+data.players[i][2]+'_gun2');
                             var nade = $('#'+data.players[i][2]+'_nade');
@@ -24,6 +26,7 @@
                             var smoke = $('#'+data.players[i][2]+'_smoke');
                             var molly = $('#'+data.players[i][2]+'_molly');
                             var description = $('#'+data.players[i][2]+'_description');
+                            strategyName.text('Current strategy: '+strategy);
                             playerBox.find(gun1).text(data.players[i][3]);
                             playerBox.find(gun2).text(data.players[i][4]);
                             playerBox.find(nade).text(data.players[i][5]);
@@ -49,6 +52,7 @@
 <body>
     <div class="container">
         <h1>Strategy Page</h1>
+        <h2 id ="strategy-name">Current strategy:</h2>
         <div class="row">
             {% for player in players %}
             <div class="player-box">

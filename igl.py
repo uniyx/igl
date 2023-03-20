@@ -52,7 +52,6 @@ def strategy():
 
 @app.route('/get_data')
 def get_data():
-    #players = []
     player_data = []
     data = sheet.get_all_values() # get the list of players from the first row
     
@@ -63,8 +62,6 @@ def get_data():
             player_data=(data[x:x+5])
         x+=1
 
-    print(player_data)
-    
     return jsonify(players=player_data) # return players as a JSON object
 
 if __name__ == '__main__':

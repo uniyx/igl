@@ -4,6 +4,14 @@ body {
   font-family: Arial, sans-serif;
 }
 
+h1 {
+  text-align:center;
+}
+
+h2 {
+  text-align:center;
+}
+
 .row {
   display: flex;
   justify-content: space-evenly;
